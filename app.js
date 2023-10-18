@@ -9,7 +9,16 @@ var todoListTag = document.getElementById("todolist")
 
 // array to store all todo elements , initally empty
 
-var todoArr = []
+// if(localStorage.getItem("todoArr")!=null){
+//   var todoArr = JSON.parse(localStorage.getItem("todoArr"))
+// }
+// else{
+//   var todoArr = []
+// }
+
+var todoArr = JSON.parse(localStorage.getItem("todoArr")) || []
+
+display()
 
 
 //  When ADD button is clicked
@@ -30,6 +39,7 @@ function addItemToArray(){
   // push the value to Array if its not an empty string
   if(inputText.value!="")
   todoArr.push(inputText.value)
+localStorage.setItem("todoArr",JSON.stringify(todoArr))
   // reset the value to empty string ""
   inputText.value=""
   // console.log("todoArr: ", todoArr)
@@ -65,6 +75,8 @@ function deleteItem(index){
   console.log("index: ", index);
 
   todoArr.splice(index ,1);
+  localStorage.setItem("todoArr",JSON.stringify(todoArr))
+
   display();
 }
 
@@ -75,6 +87,8 @@ function editItem(index){
 
 
   todoArr.splice(index,1,newValue)
+  localStorage.setItem("todoArr",JSON.stringify(todoArr))
+
 
   display();
 }
@@ -82,6 +96,10 @@ function editItem(index){
 
 document.getElementById("reset").addEventListener("click",()=>{
   todoArr=[]
+  localStorage.setItem("todoArr",JSON.stringify(todoArr))
+
   display()
 
 })
+
+
